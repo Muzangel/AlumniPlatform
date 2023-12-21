@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8" />
+    <meta name="viewport"content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+    <style>
+
+      body {
+        background-image: url('img/4.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .modal-dialog {
+        max-width: 90vw;
+      }
+      .table-responsive {
+        overflow-x: auto;
+      }
+
+      footer {
+      position: fixed;
+      background-color: rgb(167, 167, 167);
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 8px;
+      }
+    </style>
+
+    <!--dashboard-->
+
+    <style>
+      table {
+      border: 1px solid #ddd; /* Add border to the table */
+      border-collapse: collapse; /* Collapse table borders */
+      width: 100%;
+      }
+
+      table {
+      border: 1px solid #ddd; /* Add border to the table */
+      border-collapse: collapse; /* Collapse table borders */
+      width: 100%;
+      }
+
+      .container {
+        margin-top: 50px;
+      }
+  
+      h1 {
+        color: #4a6f93;
+      }
+  
+      .card {
+        background-color: #81a3c5;
+        color: #ecf0f1;
+        border-radius: 15px;
+        transition: transform 0.2s;
+      }
+
+      .card-title {
+        color: #ecf0f1;
+      }
+  
+      .btn-primary {
+        background-color: #1684c4;
+        border-color: #1684c4;
+      }
+  
+      .btn-primary:hover {
+        background-color: #1d5a7a;
+        border-color: #1d5a7a;
+      }
+    </style>
+
+
+  </head>
+
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#">Manager Dashboard</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/signout">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/view/manager.mustache">Manager Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signout">Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <h1>Admin Dashboard</h1>
+      <hr />
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Alumni Management</h5>
+              <p class="card-text">View, edit, and delete alumni details.</p>
+              <a
+                href="#"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#alumniModal"
+                >Manage Alumni</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Event Management</h5>
+              <p class="card-text">
+                View, edit, delete, and add new events.
+              </p>
+              <a href="/managerEvennts" class="btn btn-primary">Manage Events</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alumni Model -->
+    <div class="modal fade" id="alumniModal" tabindex="-1" role="dialog" aria-labelledby="alumniModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="alumniModalLabel">Alumni Management</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Alumni management content here -->
+            <h4>View and Manage Alumni details.</h4>
+
+            <table class="table table-striped table-hover" id="table">
+              <thead>
+                <tr>
+                  <th>Alumni Id</th>
+                  <th>Name</th>
+                  <th>Degree</th>
+                  <th>PhoneNumber</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#alumni}}
+                  <tr data-Type="Professional">
+                    <td>{{Id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{Degree}}</td>
+                    <td>{{PhoneNumber}}</td>
+                    <td>{{Type}}</td>
+                    <td><a class="edit" title="Edit" data-toggle="modal" data-target="#editAlumniModal"><i class="material-icons">&#xE254;</i></a></td>
+                    <td><a class="delete" title="Delete" data-toggle="modal" data-target="#deleteAlumniModal"><i class="material-icons">&#xE872;</i></a></td>
+                  </tr>
+                {{/alumni}}
+              </tbody>
+            </table>
+            <div class="col-sm-4" id="btn-add">
+              <button type="button" class="btn btn-info add-new" data-toggle="modal" data-target="#addAlumniModal">
+                <i class="fa fa-plus"></i> Add Alumni
+              </button>
+           </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Modals -->
+   <!-- Add Alumni Modal Content -->
+    <div class="modal fade" id="addAlumniModal" tabindex="-1" role="dialog" aria-labelledby="addAlumniModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addAlumniModalLabel">Add Alumni</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/add" method="POST">
+              <div class="form-group">
+                <label for="addAlumniId">Alumni Id</label>
+                <input type="text" class="form-control" id="addAlumniId" placeholder="Enter Alumni Id" name="Id">
+              </div>
+              <div class="form-group">
+                <label for="addAlumniName">Alumni Name</label>
+                <input type="text" class="form-control" id="addAlumniName" placeholder="Enter Alumni name" name="name">
+              </div>
+
+              <div class="form-group">
+                <label for="Degree">Alumni Degree</label>
+                <input type="Degree" id="Degree" name="Degree" class="form-control" required>
+              </div>
+
+              <div class="form-group">
+                <label for="PhoneNumber">Alumni PhoneNumber</label>
+                <input type="PhoneNumber" id="PhoneNumber" name="PhoneNumber" class="form-control" required>
+              </div>
+
+              <div class="form-group">
+                <label for="Type"> Type</label>
+                <input type="Type" id="Type" name="Type" class="form-control" required>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Edit Alumni Modal Content -->
+    <div class="modal fade" id="editAlumniModal" tabindex="-1" role="dialog" aria-labelledby="editAlumniModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editAlumniModalLabel">Edit Alumni</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Alumni editing form content here -->
+            <form action="/edit" method="POST">
+              <div class="form-group">
+                <label for="addAlumniId">Alumni Id</label>
+                <input type="text" class="form-control" id="addEventId" placeholder="Enter Alumni Id" name="Id">
+              </div>
+
+              <div class="form-group">
+                <label for="addEventName">Alumni Name</label>
+                <input type="text" class="form-control" id="addEventName" placeholder="Enter event name" name="name">
+              </div>
+
+              <div class="form-group">
+                <label for="Degree">Alumni Degree</label>
+                <input type="Degree" id="Degree" name="Degree" class="form-control" required>
+              </div>
+
+              <div class="form-group">
+                <label for="PhoneNumber">Alumni PhoneNumber</label>
+                <input type="PhoneNumber" id="PhoneNumber" name="PhoneNumber" class="form-control" required>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- delete -->
+    <div class="modal fade" id="deleteAlumniModal" tabindex="-1" role="dialog" aria-labelledby="deleteAlumniModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteAlumniModalLabel">Delete Alumni</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/deleteAlummni" method="POST">
+              <div class="form-group">
+                <label for="deleteAlumniId">Alumni Id</label>
+                <input type="text" class="form-control" id="deleteAlumniId" placeholder="Enter Alumni Id" Id="Id" name="Id">
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+
+  </body>
+</html>
