@@ -2,7 +2,7 @@
 const nedb = require('nedb');
 const path = require('path');
 const dbFilePath = path.join(__dirname,'../','data.db')
-const bcrypt = require('bcrypt');
+  
 const { Manager } = require('session');
 
 // Create a class for handling administrative tasks

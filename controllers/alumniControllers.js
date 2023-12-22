@@ -2,7 +2,7 @@
 const express = require('express');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3').vervose();
 const Admin = require('../models/Admin');
 
 const db = new sqlite3.Database('accounts.db');
