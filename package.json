@@ -13,5 +13,9 @@
     "path": "^0.12.7",
     "session": "^0.1.0",
     "sqlite3": "^5.1.6"
+  },
+  "Scripts":{
+    "dev": "node index",
+    "build":"npm i"
   }
 }
