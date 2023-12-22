@@ -16,6 +16,6 @@
   },
   "Scripts":{
     "dev": "node index",
-    "build":"npm i"
+     "build":"npm i"
   }
 }
